@@ -28,6 +28,12 @@ export type LandbotState = |
 }
 |
 {
+    messages: Array<ChatMessage>
+	state: "WAITING_FOR_BOT_INPUT"
+	config: ConfigProperties
+}
+|
+{
 	messages: []
 	state: "ERROR"
 	config: null

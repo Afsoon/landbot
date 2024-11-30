@@ -1,7 +1,7 @@
 import Core from "@landbot/core"
-import type { Message, ConfigProperties } from "@landbot/core/dist/src/types"
 import { useState, useRef, useEffect } from "react"
 import type { ChatMessage, LandbotState } from "./types";
+import type { ConfigProperties, Message } from "@landbot/core/dist/src/types";
 
 export const useLandbot = () => {
 	const core = useRef<Core | null>(null)
@@ -29,13 +29,15 @@ export const useLandbot = () => {
 			core.current = new Core(landbotState.config)
 			core.current.pipelines.$readableSequence.subscribe((data: Message) => {
 				setLandbotState((chatBotState) => {
-                    if (chatBotState.state !== "READY") {
+                    if (chatBotState.state !== "READY" && chatBotState.state !== "WAITING_FOR_BOT_INPUT") { 
                         return chatBotState;
                     }
 
+                    const parsedMessage = parseMessage(data);
 					return {
 						...chatBotState,
-						messages: [...chatBotState.messages, parseMessage(data)].filter(messagesFilter).sort((a, b) => a.timestamp - b.timestamp),
+                        state: parsedMessage.author === "user" ? "WAITING_FOR_BOT_INPUT" : "READY",
+						messages: [...chatBotState.messages, parsedMessage].filter(messagesFilter).sort((a, b) => a.timestamp - b.timestamp),
 					}
 				})
 			})
