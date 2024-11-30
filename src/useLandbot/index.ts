@@ -37,11 +37,29 @@ function parseMessages(messages: Record<string, Message>): Record<string, ChatMe
 	)
 }
 
-// TODO: Union types to represent different states
-type LandbotState = {
+type LandbotState = |
+{
 	messages: Record<string, ChatMessage>
-	state: "LOADING" | "CONFIG_LOADED" | "READY" | "ERROR"
-	config: ConfigProperties | null
+	state: "LOADING"
+	config: null
+}
+|
+{
+	messages: Record<string, ChatMessage>
+	state: "CONFIG_LOADED"
+	config: ConfigProperties
+}
+|
+{
+	messages: Record<string, ChatMessage>
+	state: "READY"
+	config: ConfigProperties
+}
+|
+{
+	messages: Record<string, ChatMessage>
+	state: "ERROR"
+	config: null
 }
 
 export const useLandbot = () => {
@@ -67,8 +85,7 @@ export const useLandbot = () => {
 
 	useEffect(() => {
 		if (landbotState.state === "CONFIG_LOADED") {
-			// biome-ignore lint/style/noNonNullAssertion: Current our types are very loose, after the refactor should be fixed
-			core.current = new Core(landbotState.config!)
+			core.current = new Core(landbotState.config)
 			core.current.pipelines.$readableSequence.subscribe((data: Message) => {
 				setLandbotState((state) => {
                     const parsedMessage = parseMessage(data);
@@ -86,7 +103,8 @@ export const useLandbot = () => {
 				setLandbotState((state) => {
 					return {
 						...state,
-						state: "READY",
+                        state: "READY",
+                        config: landbotState.config,
 						messages: parseMessages(data.messages),
 					}
 				})
