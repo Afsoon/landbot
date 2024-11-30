@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import './App.css'
-import { type ChatMessage, useLandbot } from './useLandbot';
-
-function messagesFilter(data: ChatMessage) {
-  /** Support for basic message types */
-  return ["text", "dialog"].includes(data.type);
-}
+import { useLandbot } from './useLandbot';
 
 function App() {
   const { client, landbotState} = useLandbot();
@@ -30,9 +25,7 @@ function App() {
             className="landbot-messages-container"
             id="landbot-messages-container"
           >
-            {Object.values(landbotState.messages)
-              .filter(messagesFilter)
-              .sort((a, b) => a.timestamp - b.timestamp)
+            {landbotState.messages
               .map((message) => (
                 <article
                   className="media landbot-message"
