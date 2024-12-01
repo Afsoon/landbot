@@ -111,14 +111,11 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Run tests
-        uses: docker://mcr.microsoft.com/playwright:v1.49.0-jammy
-        env:
-          # Fix Firefox crash in GitHub Actions
-          # Details: https://github.com/microsoft/playwright/issues/6500#issuecomment-838515115
-          HOME: /root
-        with:
-          args: npm run test
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npm run test
 
       - uses: actions/upload-artifact@v4
         if: always()
