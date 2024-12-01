@@ -1,9 +1,9 @@
 import { useRef } from "react"
 import "./App.css"
 import { useLandbot } from "./useLandbot"
-import { LoadingChatbot } from "./components/loading/chatbotLoading"
 import { TypingChatbot } from "./components/loading/chatbotTyping"
-import { ChatbotError } from "./components/loading/chatbotError"
+import { ChatbotMessages } from "./components/chatbot/chatbotMessages"
+import { ChatbotLayout } from "./components/chatbot/chatbotLayout"
 
 function App() {
 	const { client, landbotState } = useLandbot()
@@ -18,56 +18,41 @@ function App() {
 	}
 
 	return (
-		<section id="landbot-app">
-			<div className="chat-container">
-				<div className="landbot-chat">
-					<div className="landbot-header">
-						<h1 className="subtitle">Landbot core example</h1>
-					</div>
-
-					{landbotState.state === "LOADING" ? <LoadingChatbot /> : null}
-          
-          {landbotState.state === "ERROR" ? <ChatbotError /> : null}
-
-					{landbotState.state === "READY" || landbotState.state === "WAITING_FOR_BOT_INPUT" ? (
-						<div className="landbot-messages-container" id="landbot-messages-container">
-							{landbotState.messages.map((message) => (
-								<article className="media landbot-message" data-author={message.author} key={message.key}>
-									<figure className="media-left landbot-message-avatar">
-										<p className="image is-64x64">
-											<img alt="" className="is-rounded" src="http://i.pravatar.cc/100" />
-										</p>
-									</figure>
-									<div className="media-content landbot-message-content">
-										<div className="content">
-											<p>{message.text}</p>
-										</div>
-									</div>
-								</article>
-							))}
-							{landbotState.state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
-						</div>
-					) : null}
-
-					<form ref={formRef} onSubmit={handleSubmit} className="landbot-input-container">
-						<div className="field">
-							<div className="control">
-								<label className="sr-only" htmlFor="userInput">
-									Type your message here
-								</label>
-								<input id="userInput" required name="userInput" className="landbot-input" type="text" />
-								<button className="button landbot-input-send" type="submit" disabled={landbotState.state !== "READY"}>
-									<span className="sr-only">Send message</span>
-									<span aria-hidden="true" className="icon is-large" style={{ fontSize: 25 }}>
-										➤
-									</span>
-								</button>
+		<ChatbotLayout>
+			<ChatbotMessages state={landbotState.state}>
+				{landbotState.messages.map((message) => (
+					<article className="media landbot-message" data-author={message.author} key={message.key}>
+						<figure className="media-left landbot-message-avatar">
+							<p className="image is-64x64">
+								<img alt="" className="is-rounded" src="http://i.pravatar.cc/100" />
+							</p>
+						</figure>
+						<div className="media-content landbot-message-content">
+							<div className="content">
+								<p>{message.text}</p>
 							</div>
 						</div>
-					</form>
+					</article>
+				))}
+				{landbotState.state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
+			</ChatbotMessages>
+			<form ref={formRef} onSubmit={handleSubmit} className="landbot-input-container">
+				<div className="field">
+					<div className="control">
+						<label className="sr-only" htmlFor="userInput">
+							Type your message here
+						</label>
+						<input id="userInput" required name="userInput" className="landbot-input" type="text" />
+						<button className="button landbot-input-send" type="submit" disabled={landbotState.state !== "READY"}>
+							<span className="sr-only">Send message</span>
+							<span aria-hidden="true" className="icon is-large" style={{ fontSize: 25 }}>
+								➤
+							</span>
+						</button>
+					</div>
 				</div>
-			</div>
-		</section>
+			</form>
+		</ChatbotLayout>
 	)
 }
 
