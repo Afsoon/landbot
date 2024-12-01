@@ -1,63 +1,82 @@
 import Core from "@landbot/core"
-import { useState, useRef, useEffect } from "react"
-import type { ChatMessage, LandbotState } from "./types";
-import type { ConfigProperties, Message } from "@landbot/core/dist/src/types";
+import type { ChatMessage, LandbotState } from "./types"
+import type { Message } from "@landbot/core/dist/src/types"
+import { useSyncExternalStore } from "react"
 
-export const useLandbot = () => {
-	const core = useRef<Core | null>(null)
-
-	const [landbotState, setLandbotState] = useState<LandbotState>({
+const createChatStore = () => {
+	let landbotState: LandbotState = {
 		messages: [],
 		state: "LOADING",
-		config: null,
-	})
+	}
 
-	useEffect(() => {
-		fetch("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json")
-			.then((res) => res.json())
-			.then((config: ConfigProperties) => {
-				setLandbotState({
-					messages: [],
-					state: "CONFIG_LOADED",
-					config,
-				})
+	let core: Core | null = null
+	const listeners = new Set<() => void>()
+
+	const emitChange = () => {
+        for (const listener of listeners) {
+            listener()
+        }
+	}
+
+	fetch("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json")
+		.then((res) => res.json())
+		.then((data) => {
+			landbotState = {
+				messages: [],
+				state: "CONFIG_LOADED",
+			}
+			emitChange()
+
+			core = new Core(data)
+
+			core.pipelines.$readableSequence.subscribe((data: Message) => {
+				if (landbotState.state !== "READY" && landbotState.state !== "WAITING_FOR_BOT_INPUT") {
+					return landbotState
+				}
+
+				const parsedMessage = parseMessage(data)
+				landbotState = {
+					state: parsedMessage.author === "user" ? "WAITING_FOR_BOT_INPUT" : "READY",
+					messages: [...landbotState.messages, parsedMessage]
+						.filter(messagesFilter)
+						.sort((a, b) => a.timestamp - b.timestamp),
+				}
+				emitChange()
 			})
-	}, [])
 
-	useEffect(() => {
-		if (landbotState.state === "CONFIG_LOADED") {
-			core.current = new Core(landbotState.config)
-			core.current.pipelines.$readableSequence.subscribe((data: Message) => {
-				setLandbotState((chatBotState) => {
-                    if (chatBotState.state !== "READY" && chatBotState.state !== "WAITING_FOR_BOT_INPUT") { 
-                        return chatBotState;
-                    }
-
-                    const parsedMessage = parseMessage(data);
-					return {
-						...chatBotState,
-                        state: parsedMessage.author === "user" ? "WAITING_FOR_BOT_INPUT" : "READY",
-						messages: [...chatBotState.messages, parsedMessage].filter(messagesFilter).sort((a, b) => a.timestamp - b.timestamp),
-					}
-				})
+			core.init().then((data) => {
+				landbotState = {
+					state: "READY",
+					messages: parseMessages(Object.values(data.messages))
+						.filter(messagesFilter)
+						.sort((a, b) => a.timestamp - b.timestamp),
+				}
+				emitChange()
 			})
-
-			core.current.init().then((data) => {
-				setLandbotState((state) => {
-					return {
-						...state,
-                        state: "READY",
-                        config: landbotState.config,
-						messages: parseMessages(Object.values(data.messages)).filter(messagesFilter).sort((a, b) => a.timestamp - b.timestamp),
-					}
-				})
-			})
-		}
-	}, [landbotState.state, landbotState.config])
+		})
 
 	return {
-		landbotState,
-		client: core.current,
+		subscribe(callback: () => void) {
+			listeners.add(callback)
+			return () => listeners.delete(callback)
+		},
+		getSnapshot() {
+			return landbotState
+		},
+		getCore() {
+			return core
+		},
+	}
+}
+
+const chatStore = createChatStore()
+
+export const useLandbot = () => {
+	const chatbotState = useSyncExternalStore(chatStore.subscribe, chatStore.getSnapshot)
+
+	return {
+		landbotState: chatbotState,
+		client: chatStore.getCore(),
 	}
 }
 
@@ -72,10 +91,10 @@ function parseMessage(data: Message): ChatMessage {
 }
 
 function parseMessages(messages: Array<Message>): Array<ChatMessage> {
-	return messages.map(parseMessage);
+	return messages.map(parseMessage)
 }
 
 function messagesFilter(data: ChatMessage) {
-    /** Support for basic message types */
-    return ["text", "dialog"].includes(data.type);
-  }
+	/** Support for basic message types */
+	return ["text", "dialog"].includes(data.type)
+}
