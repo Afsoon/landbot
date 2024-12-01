@@ -13,6 +13,7 @@
 		"check:unused:fix": "knip --fix",
 		"test": "playwright test",
 		"test:ui": "playwright test --ui",
+    "typecheck": "tsc --noEmit",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build"
 	},
