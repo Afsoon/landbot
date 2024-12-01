@@ -1,10 +1,10 @@
 import { useRef } from "react"
 import "./App.css"
 import { useLandbot } from "./useLandbot"
-import { TypingChatbot } from "./components/loading/chatbotTyping"
 import { ChatbotMessages } from "./components/chatbot/chatbotMessages"
 import { ChatbotLayout } from "./components/chatbot/chatbotLayout"
 import { ChatbotMessage } from "./components/chatbot/chatbotMessage"
+import { ChatbotForm } from "./components/chatbot/chatbotForm"
 
 function App() {
 	const { client, landbotState } = useLandbot()
@@ -27,22 +27,7 @@ function App() {
           </ChatbotMessage>
 				))}
 			</ChatbotMessages>
-			<form ref={formRef} onSubmit={handleSubmit} className="landbot-input-container">
-				<div className="field">
-					<div className="control">
-						<label className="sr-only" htmlFor="userInput">
-							Type your message here
-						</label>
-						<input id="userInput" required name="userInput" className="landbot-input" type="text" />
-						<button className="button landbot-input-send" type="submit" disabled={landbotState.state !== "READY"}>
-							<span className="sr-only">Send message</span>
-							<span aria-hidden="true" className="icon is-large" style={{ fontSize: 25 }}>
-								➤
-							</span>
-						</button>
-					</div>
-				</div>
-			</form>
+			<ChatbotForm state={landbotState.state} onSubmit={handleSubmit} ref={formRef} />
 		</ChatbotLayout>
 	)
 }
