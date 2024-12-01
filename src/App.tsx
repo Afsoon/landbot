@@ -14,9 +14,9 @@ function App() {
 		}
 	}
 
-  if (landbotState.state === "LOADING" || landbotState.state === "CONFIG_LOADED") { 
-    return <div>Loading...</div>
-  }
+	if (landbotState.state === "LOADING" || landbotState.state === "CONFIG_LOADED") {
+		return <div>Loading...</div>
+	}
 
 	return (
 		<section id="landbot-app">
@@ -49,13 +49,14 @@ function App() {
 								<label className="sr-only" htmlFor="userInput">
 									Type your message here
 								</label>
-								<input id="userInput" name="userInput" className="landbot-input" type="text" />
+								<input id="userInput" required name="userInput" className="landbot-input" type="text" />
 								<button
 									className="button landbot-input-send"
 									type="submit"
 									disabled={landbotState.state === "WAITING_FOR_BOT_INPUT"}
 								>
-									<span className="icon is-large" style={{ fontSize: 25 }}>
+                  <span className="sr-only">Send message</span>
+									<span aria-hidden="true" className="icon is-large" style={{ fontSize: 25 }}>
 										➤
 									</span>
 								</button>

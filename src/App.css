@@ -6,6 +6,7 @@
   --orange: rgb(207, 131, 5);
 
   --chat-border-radius: 20px;
+  --outline-width: 3px;
 }
 
 * {
@@ -73,13 +74,14 @@ body {
   border-top: 0;
 }
 
-.landbot-message[data-author="bot"] + .landbot-message[data-author="bot"],
-.landbot-message[data-author="user"] + .landbot-message[data-author="user"] {
-  margin-top: 3px;
-}
 
 .landbot-message[data-author="user"] {
   justify-content: flex-end;
+}
+
+.landbot-message[data-author="bot"] + .landbot-message[data-author="bot"],
+.landbot-message[data-author="user"] + .landbot-message[data-author="user"] {
+  margin-top: 3px;
 }
 
 .landbot-message-avatar {
@@ -135,9 +137,27 @@ body {
   color: var(--orange);
 }
 
+.landbot-input:focus {
+  outline: var(--outline-width) solid var(--orange);
+  outline-offset: -3px;
+  border-radius: var(--chat-border-radius);
+}
+
+.landbot-input:user-invalid {
+  outline: var(--outline-width) solid red;
+  outline-offset: -3px;
+  border-radius: var(--chat-border-radius);
+}
+
 .button[disabled] {
-  background-color: transparent;
+  background-color: red;
   border-color: transparent;
+}
+
+.button:focus {
+  outline: var(--outline-width) solid var(--orange);
+  outline-offset: -3px;
+  border-radius: var(--chat-border-radius);
 }
 
 .sr-only {
