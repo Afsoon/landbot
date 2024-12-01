@@ -82,3 +82,31 @@ test("WHEN the server is unable to respond THEN the chatbot shows an error state
 	await expect(page.getByText("Loading Chatbot, please wait...")).toBeVisible()
 	await expect(page.getByRole("button", { name: "Send message" })).toBeDisabled()
 })
+
+test("WHEN the messages are overflowing THEN the chatbot scrolls to the bottom", async ({ page }) => {
+  await page.goto("/")
+
+  await expect(page.getByText("Type something to start chatbotting!")).toBeVisible()
+
+  await page.getByLabel("Type your message here").fill("First message")   
+  await page.getByRole("button", { name: "Send message" }).click()    
+
+
+  await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled();
+  await expect(page.getByText("Are you playing with Landbot?")).toBeVisible()
+
+  await page.getByLabel("Type your message here").fill("Second message")   
+  await page.getByRole("button", { name: "Send message" }).click()
+
+  await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled();
+  await expect(page.getByText("Ok. Good luck!")).toBeVisible()
+
+  await page.getByLabel("Type your message here").fill("third message")   
+  await page.getByRole("button", { name: "Send message" }).click()    
+
+  await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled();
+  await expect(page.getByText("third message")).toBeVisible()
+
+  expect(page.getByText("third message")).toBeInViewport();
+
+})
