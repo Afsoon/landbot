@@ -42,3 +42,43 @@ test("WHEN the user is using a slow connection THEN the chatbot shows a loading 
 	await expect(page.getByText("Loading Chatbot, please wait...")).toBeVisible()
 	await expect(page.getByRole("button", { name: "Send message" })).toBeDisabled()
 })
+
+test("WHEN JSON is incorrect THEN the chatbot shows an error message", async ({ page }) => {
+	await page.route("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json", async (route) => {
+		return route.fulfill({
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    })
+	})
+
+	await page.goto("/")
+
+	await expect(page.getByText("Chatbot Error")).toBeVisible()
+})
+
+test("WHEN fetch fails due a bad request THEN the chatbot shows an error state", async ({ page }) => {
+	await page.route("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json", async (route) => {
+		await new Promise((resolve) => setTimeout(resolve, 10000))
+		return route.continue()
+	})
+
+	await page.goto("/")
+
+	await expect(page.getByText("Loading Chatbot, please wait...")).toBeVisible()
+	await expect(page.getByRole("button", { name: "Send message" })).toBeDisabled()
+})
+
+test("WHEN the server is unable to respond THEN the chatbot shows an error state", async ({ page }) => {
+	await page.route("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json", async (route) => {
+		await new Promise((resolve) => setTimeout(resolve, 10000))
+		return route.continue()
+	})
+
+	await page.goto("/")
+
+	await expect(page.getByText("Loading Chatbot, please wait...")).toBeVisible()
+	await expect(page.getByRole("button", { name: "Send message" })).toBeDisabled()
+})
