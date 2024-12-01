@@ -1,0 +1,5 @@
+.landbot-messages-container {
+	flex: 1;
+	overflow: auto;
+	padding: 36px 20px;
+}
