@@ -1,10 +1,10 @@
 import { useRef } from "react"
 import "./App.css"
-import { ChatbotForm } from "./components/chatbot/ChatbotForm"
 import { ChatbotLayout } from "./components/chatbot/ChatbotLayout"
 import { ChatbotMessage } from "./components/chatbot/ChatbotMessage"
 import { ChatbotMessages } from "./components/chatbot/ChatbotMessages"
 import { useLandbot } from "./useLandbot"
+import { ChatbotForm } from "./components/chatbot/ChatbotForm"
 
 function App() {
 	const { client, landbotState } = useLandbot()
