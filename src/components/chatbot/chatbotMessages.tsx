@@ -4,6 +4,7 @@ import { ChatbotError } from "../loading/chatbotError"
 import { LoadingChatbot } from "../loading/chatbotLoading"
 
 import "./chatbotMessages.css"
+import { TypingChatbot } from "../loading/chatbotTyping"
 
 type ChatbotProps = {
 	state: LandbotState["state"]
@@ -30,6 +31,7 @@ export const ChatbotMessages = ({ state, children }: ChatbotProps) => {
 	return (
 		<div className="landbot-messages-container" id="landbot-messages-container">
 			{children}
+			{state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
 		</div>
 	)
 }
