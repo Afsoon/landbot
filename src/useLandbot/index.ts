@@ -19,9 +19,16 @@ const createChatStore = () => {
 	}
 
 	fetch("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json")
-		.then((res) => res.json())
+		.then((res) => {
+            if (!res.ok) {
+                throw new Error("Network response was not ok")
+            }
+            return res.json()
+        })
 		.then((data) => {
-			emitChange()
+            if (data.firestore == null) {
+                throw new Error("Firestore is not defined")
+            }
 
 			core = new Core(data)
 
@@ -49,7 +56,13 @@ const createChatStore = () => {
 				}
 				emitChange()
 			})
-		})
+		}).catch(() => {
+            landbotState = {
+                state: "ERROR",
+                messages: [],
+            }
+            emitChange()
+        })
 
 	return {
 		subscribe(callback: () => void) {

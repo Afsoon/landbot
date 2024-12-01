@@ -3,6 +3,7 @@ import "./App.css"
 import { useLandbot } from "./useLandbot"
 import { LoadingChatbot } from "./components/loading/chatbotLoading"
 import { TypingChatbot } from "./components/loading/chatbotTyping"
+import { ChatbotError } from "./components/loading/chatbotError"
 
 function App() {
 	const { client, landbotState } = useLandbot()
@@ -24,9 +25,11 @@ function App() {
 						<h1 className="subtitle">Landbot core example</h1>
 					</div>
 
-					{landbotState.state === "LOADING" ? (
-						<LoadingChatbot />
-					) : (
+					{landbotState.state === "LOADING" ? <LoadingChatbot /> : null}
+          
+          {landbotState.state === "ERROR" ? <ChatbotError /> : null}
+
+					{landbotState.state === "READY" || landbotState.state === "WAITING_FOR_BOT_INPUT" ? (
 						<div className="landbot-messages-container" id="landbot-messages-container">
 							{landbotState.messages.map((message) => (
 								<article className="media landbot-message" data-author={message.author} key={message.key}>
@@ -44,7 +47,7 @@ function App() {
 							))}
 							{landbotState.state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
 						</div>
-					)}
+					) : null}
 
 					<form ref={formRef} onSubmit={handleSubmit} className="landbot-input-container">
 						<div className="field">
@@ -53,11 +56,7 @@ function App() {
 									Type your message here
 								</label>
 								<input id="userInput" required name="userInput" className="landbot-input" type="text" />
-								<button
-									className="button landbot-input-send"
-									type="submit"
-									disabled={landbotState.state === "WAITING_FOR_BOT_INPUT" || landbotState.state === "LOADING"}
-								>
+								<button className="button landbot-input-send" type="submit" disabled={landbotState.state !== "READY"}>
 									<span className="sr-only">Send message</span>
 									<span aria-hidden="true" className="icon is-large" style={{ fontSize: 25 }}>
 										➤
