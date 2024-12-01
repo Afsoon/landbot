@@ -1,58 +1,57 @@
 .landbot-input-container {
-    position: relative;
-    background-color: var(--dark-blue-2);
-    border-bottom-left-radius: var(--chat-border-radius);
-    border-bottom-right-radius: var(--chat-border-radius);
-  }
-  
-  .landbot-input {
-    width: 100%;
-    color: var(--light);
-    padding: 20px 55px 20px 25px;
-    font-size: 16px;
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-  }
-  
-  .landbot-input-send {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--orange);
-    background-color: transparent;
-    border: 0;
-  }
-  
-  .landbot-input-send:hover {
-    color: var(--orange);
-  }
-  
-  .landbot-input:focus {
-    outline: var(--outline-width) solid var(--orange);
-    outline-offset: -3px;
-    border-radius: var(--chat-border-radius);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  
-  .landbot-input:user-invalid {
-    outline: var(--outline-width) solid red;
-    outline-offset: -3px;
-    border-radius: var(--chat-border-radius);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  
-  .button[disabled] {
-    background-color: red;
-    border-color: transparent;
-  }
-  
-  .button:focus {
-    outline: var(--outline-width) solid var(--orange);
-    outline-offset: -3px;
-    border-radius: var(--chat-border-radius);
-  }
-  
+	position: relative;
+	background-color: var(--dark-blue-2);
+	border-bottom-left-radius: var(--chat-border-radius);
+	border-bottom-right-radius: var(--chat-border-radius);
+}
+
+.landbot-input {
+	width: 100%;
+	color: var(--light);
+	padding: 20px 55px 20px 25px;
+	font-size: 16px;
+	background-color: transparent;
+	border: 0;
+	outline: 0;
+}
+
+.landbot-input-send {
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--orange);
+	background-color: transparent;
+	border: 0;
+}
+
+.landbot-input-send:hover {
+	color: var(--orange);
+}
+
+.landbot-input:focus {
+	outline: var(--outline-width) solid var(--orange);
+	outline-offset: -3px;
+	border-radius: var(--chat-border-radius);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.landbot-input:user-invalid {
+	outline: var(--outline-width) solid red;
+	outline-offset: -3px;
+	border-radius: var(--chat-border-radius);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.button[disabled] {
+	background-color: red;
+	border-color: transparent;
+}
+
+.button:focus {
+	outline: var(--outline-width) solid var(--orange);
+	outline-offset: -3px;
+	border-radius: var(--chat-border-radius);
+}

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { expect, test } from "@playwright/test"
 
 test("WHEN I visit the home page THEN I see the chatbot and a welcome message", async ({ page }) => {
 	await page.goto("/")
@@ -46,12 +46,12 @@ test("WHEN the user is using a slow connection THEN the chatbot shows a loading 
 test("WHEN JSON is incorrect THEN the chatbot shows an error message", async ({ page }) => {
 	await page.route("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json", async (route) => {
 		return route.fulfill({
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    })
+			status: 200,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({}),
+		})
 	})
 
 	await page.goto("/")
@@ -84,29 +84,27 @@ test("WHEN the server is unable to respond THEN the chatbot shows an error state
 })
 
 test("WHEN the messages are overflowing THEN the chatbot scrolls to the bottom", async ({ page }) => {
-  await page.goto("/")
+	await page.goto("/")
 
-  await expect(page.getByText("Type something to start chatbotting!")).toBeVisible()
+	await expect(page.getByText("Type something to start chatbotting!")).toBeVisible()
 
-  await page.getByLabel("Type your message here").fill("First message")   
-  await page.getByRole("button", { name: "Send message" }).click()    
+	await page.getByLabel("Type your message here").fill("First message")
+	await page.getByRole("button", { name: "Send message" }).click()
 
+	await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled()
+	await expect(page.getByText("Are you playing with Landbot?")).toBeVisible()
 
-  await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled();
-  await expect(page.getByText("Are you playing with Landbot?")).toBeVisible()
+	await page.getByLabel("Type your message here").fill("Second message")
+	await page.getByRole("button", { name: "Send message" }).click()
 
-  await page.getByLabel("Type your message here").fill("Second message")   
-  await page.getByRole("button", { name: "Send message" }).click()
+	await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled()
+	await expect(page.getByText("Ok. Good luck!")).toBeVisible()
 
-  await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled();
-  await expect(page.getByText("Ok. Good luck!")).toBeVisible()
+	await page.getByLabel("Type your message here").fill("third message")
+	await page.getByRole("button", { name: "Send message" }).click()
 
-  await page.getByLabel("Type your message here").fill("third message")   
-  await page.getByRole("button", { name: "Send message" }).click()    
+	await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled()
+	await expect(page.getByText("third message")).toBeVisible()
 
-  await expect(page.getByRole("button", { name: "Send message" })).not.toBeDisabled();
-  await expect(page.getByText("third message")).toBeVisible()
-
-  expect(page.getByText("third message")).toBeInViewport();
-
+	expect(page.getByText("third message")).toBeInViewport()
 })

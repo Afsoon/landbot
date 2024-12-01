@@ -1,7 +1,7 @@
 import Core from "@landbot/core"
-import type { ChatMessage, LandbotState } from "./types"
 import type { Message } from "@landbot/core/dist/src/types"
 import { useSyncExternalStore } from "react"
+import type { ChatMessage, LandbotState } from "./types"
 
 const createChatStore = () => {
 	let landbotState: LandbotState = {
@@ -13,22 +13,22 @@ const createChatStore = () => {
 	const listeners = new Set<() => void>()
 
 	const emitChange = () => {
-        for (const listener of listeners) {
-            listener()
-        }
+		for (const listener of listeners) {
+			listener()
+		}
 	}
 
 	fetch("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json")
 		.then((res) => {
-            if (!res.ok) {
-                throw new Error("Network response was not ok")
-            }
-            return res.json()
-        })
+			if (!res.ok) {
+				throw new Error("Network response was not ok")
+			}
+			return res.json()
+		})
 		.then((data) => {
-            if (data.firestore == null) {
-                throw new Error("Firestore is not defined")
-            }
+			if (data.firestore == null) {
+				throw new Error("Firestore is not defined")
+			}
 
 			core = new Core(data)
 
@@ -56,13 +56,14 @@ const createChatStore = () => {
 				}
 				emitChange()
 			})
-		}).catch(() => {
-            landbotState = {
-                state: "ERROR",
-                messages: [],
-            }
-            emitChange()
-        })
+		})
+		.catch(() => {
+			landbotState = {
+				state: "ERROR",
+				messages: [],
+			}
+			emitChange()
+		})
 
 	return {
 		subscribe(callback: () => void) {

@@ -8,7 +8,7 @@ export const ChatbotLayout = ({ children }: { children: React.ReactNode }) => {
 					<div className="landbot-header">
 						<h1 className="subtitle">Landbot core example</h1>
 					</div>
-                    {children}
+					{children}
 				</div>
 			</div>
 		</section>

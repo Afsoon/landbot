@@ -1,10 +1,10 @@
 import { useRef } from "react"
 import "./App.css"
-import { useLandbot } from "./useLandbot"
-import { ChatbotMessages } from "./components/chatbot/chatbotMessages"
+import { ChatbotForm } from "./components/chatbot/chatbotForm"
 import { ChatbotLayout } from "./components/chatbot/chatbotLayout"
 import { ChatbotMessage } from "./components/chatbot/chatbotMessage"
-import { ChatbotForm } from "./components/chatbot/chatbotForm"
+import { ChatbotMessages } from "./components/chatbot/chatbotMessages"
+import { useLandbot } from "./useLandbot"
 
 function App() {
 	const { client, landbotState } = useLandbot()
@@ -23,8 +23,8 @@ function App() {
 			<ChatbotMessages state={landbotState.state}>
 				{landbotState.messages.map((message) => (
 					<ChatbotMessage key={message.key} message={message}>
-								<p>{message.text}</p>
-          </ChatbotMessage>
+						<p>{message.text}</p>
+					</ChatbotMessage>
 				))}
 			</ChatbotMessages>
 			<ChatbotForm state={landbotState.state} onSubmit={handleSubmit} ref={formRef} />

@@ -1,11 +1,11 @@
 import { type ForwardedRef, forwardRef } from "react"
-import type { LandbotState } from "../../useLandbot/types";
+import type { LandbotState } from "../../useLandbot/types"
 
 import "./chatbotForm.css"
 
 type ChatbotFormProps = {
-    state: LandbotState["state"];
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+	state: LandbotState["state"]
+	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 const ChatbotFormNotForwared = ({ state, onSubmit }: ChatbotFormProps, ref: ForwardedRef<HTMLFormElement>) => {
