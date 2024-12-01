@@ -17,6 +17,7 @@ Apart of these issues, I also added the following:
 - Knip for unused imports.
 - No Barrel files.
 
+To see the evolution of the code, checkout the [PRs](https://github.com/Afsoon/landbot/pulls?q=is%3Apr+is%3Aclosed).
 
 ## Technical Decisions
 
@@ -59,3 +60,12 @@ Github Actions because the code is hosted on Github.
 ### No Barrel files.
 
 The lack of barrel files is becoming a recommended practice to reduce the time of loading the project. 
+
+## Future Improvements
+
+A non exhaustive list of future improvements:
+
+- i18n.
+- Continuous deployment.
+- A better UI.
+- A better implementation of bot typing.
