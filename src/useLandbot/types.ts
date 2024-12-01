@@ -14,11 +14,6 @@ export type LandbotState = |
 |
 {
 	messages: Array<ChatMessage>
-	state: "CONFIG_LOADED"
-}
-|
-{
-	messages: Array<ChatMessage>
 	state: "READY"
 }
 |
