@@ -65,7 +65,6 @@ export const MultipleMessages: Story = {
             <ChatbotMessage message={userMessage}>
                 {userMessage.text}
             </ChatbotMessage>
-        
             <ChatbotMessage message={userMessage}>
                 {userMessage.text}
             </ChatbotMessage>
