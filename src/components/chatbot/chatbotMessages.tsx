@@ -1,10 +1,11 @@
 import type { ReactNode } from "react"
 import type { LandbotState } from "../../useLandbot/types"
-import { ChatbotError } from "../loading/chatbotError"
-import { LoadingChatbot } from "../loading/chatbotLoading"
+import { ChatbotError } from "../loading/ChatbotError"
+import { ChatbotLoading } from "../loading/ChatbotLoading"
+import { ChatbotTyping } from "../loading/ChatbotTyping"
 
-import "./chatbotMessages.css"
-import { TypingChatbot } from "../loading/chatbotTyping"
+
+import "./ChatbotMessages.css"
 
 type ChatbotProps = {
 	state: LandbotState["state"]
@@ -15,7 +16,7 @@ export const ChatbotMessages = ({ state, children }: ChatbotProps) => {
 	if (state === "LOADING") {
 		return (
 			<div className="landbot-messages-container" id="landbot-messages-container">
-				<LoadingChatbot />
+				<ChatbotLoading />
 			</div>
 		)
 	}
@@ -35,7 +36,7 @@ export const ChatbotMessages = ({ state, children }: ChatbotProps) => {
 			ref={(node) => node?.scrollTo({ behavior: "smooth", top: node.scrollHeight })}
 		>
 			{children}
-			{state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
+			{state === "WAITING_FOR_BOT_INPUT" ? <ChatbotTyping /> : null}
 		</div>
 	)
 }

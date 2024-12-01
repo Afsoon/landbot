@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import type { ComponentProps } from "react"
 import type { ChatMessage } from "../../useLandbot/types"
-import { ChatbotMessage } from "./chatbotMessage"
-import { ChatbotMessages } from "./chatbotMessages"
+import { ChatbotMessage } from "./ChatbotMessage"
+import { ChatbotMessages } from "./ChatbotMessages"
 
 type CustomPropsStory = ComponentProps<typeof ChatbotMessage> & {
 	author: ComponentProps<typeof ChatbotMessage>["message"]["author"]

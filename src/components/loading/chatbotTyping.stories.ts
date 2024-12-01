@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { TypingChatbot as TypingChatbotComponent } from "./chatbotTyping"
+import { ChatbotTyping as ChatbotTypingComponent } from "./ChatbotTyping"
 
-const meta: Meta<typeof TypingChatbotComponent> = {
-	component: TypingChatbotComponent,
+const meta: Meta<typeof ChatbotTypingComponent> = {
+	component: ChatbotTypingComponent,
 	parameters: {
 		layout: "centered",
 	},
@@ -13,4 +13,4 @@ const meta: Meta<typeof TypingChatbotComponent> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const TypingChatbot: Story = {}
+export const ChatbotTyping: Story = {}

@@ -1,4 +1,4 @@
-import "./chatbotError.css"
+import "./ChatbotError.css"
 
 export const ChatbotError = () => {
 	return (

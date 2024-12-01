@@ -1,6 +1,6 @@
-import "./chatbotTyping.css"
+import "./ChatbotTyping.css"
 
-export const TypingChatbot = () => {
+export const ChatbotTyping = () => {
 	return (
 		<>
 			<span className="sr-only">Chatbot is typing, please wait...</span>

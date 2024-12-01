@@ -1,12 +1,12 @@
 import type { ComponentProps } from "react"
 import ContentLoader from "react-content-loader"
 
-type LoadingChatbotProps = Exclude<
+type ChatbotLoadingProps = Exclude<
 	ComponentProps<typeof ContentLoader>,
 	"width" | "height" | "viewBox" | "backgroundColor" | "foregroundColor" | "speed"
 >
 
-export const LoadingChatbot = (props: LoadingChatbotProps) => {
+export const ChatbotLoading = (props: ChatbotLoadingProps) => {
 	return (
 		<>
 			<span className="sr-only">Loading Chatbot, please wait...</span>

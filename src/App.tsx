@@ -1,9 +1,9 @@
 import { useRef } from "react"
 import "./App.css"
-import { ChatbotForm } from "./components/chatbot/chatbotForm"
-import { ChatbotLayout } from "./components/chatbot/chatbotLayout"
-import { ChatbotMessage } from "./components/chatbot/chatbotMessage"
-import { ChatbotMessages } from "./components/chatbot/chatbotMessages"
+import { ChatbotForm } from "./components/chatbot/ChatbotForm"
+import { ChatbotLayout } from "./components/chatbot/ChatbotLayout"
+import { ChatbotMessage } from "./components/chatbot/ChatbotMessage"
+import { ChatbotMessages } from "./components/chatbot/ChatbotMessages"
 import { useLandbot } from "./useLandbot"
 
 function App() {

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { type ComponentProps, useRef } from "react"
 import type { ChatMessage } from "../../useLandbot/types"
-import { ChatbotForm } from "./chatbotForm"
-import { ChatbotLayout } from "./chatbotLayout"
-import { ChatbotMessage } from "./chatbotMessage"
-import { ChatbotMessages } from "./chatbotMessages"
+import { ChatbotForm } from "./ChatbotForm"
+import { ChatbotLayout } from "./ChatbotLayout"
+import { ChatbotMessage } from "./ChatbotMessage"
+import { ChatbotMessages } from "./ChatbotMessages"
 
 const meta: Meta<typeof ChatbotMessages> = {
 	component: ChatbotMessages,

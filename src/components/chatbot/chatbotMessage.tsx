@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import type { ChatMessage } from "../../useLandbot/types"
 
-import "./chatbotMessage.css"
+import "./ChatbotMessage.css"
 
 export const ChatbotMessage = ({ message, children }: { message: ChatMessage; children: ReactNode }) => {
 	return (

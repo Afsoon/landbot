@@ -1,4 +1,4 @@
-import "./chatbotLayout.css"
+import "./ChatbotLayout.css"
 
 export const ChatbotLayout = ({ children }: { children: React.ReactNode }) => {
 	return (

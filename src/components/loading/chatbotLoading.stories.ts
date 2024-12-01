@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { LoadingChatbot as LoadingChatbotComponent } from "./chatbotLoading"
+import { ChatbotLoading as ChatbotLoadingComponent } from "./ChatbotLoading"
 
-const meta: Meta<typeof LoadingChatbotComponent> = {
-	component: LoadingChatbotComponent,
+const meta: Meta<typeof ChatbotLoadingComponent> = {
+	component: ChatbotLoadingComponent,
 	parameters: {
 		layout: "centered",
 	},

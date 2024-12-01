@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ChatbotError as ChatbotErrorComponent } from "./chatbotError"
+import { ChatbotError as ChatbotErrorComponent } from "./ChatbotError"
 
 const meta: Meta<typeof ChatbotErrorComponent> = {
 	component: ChatbotErrorComponent,

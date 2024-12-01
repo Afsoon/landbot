@@ -1,7 +1,7 @@
 import { type ForwardedRef, forwardRef } from "react"
 import type { LandbotState } from "../../useLandbot/types"
 
-import "./chatbotForm.css"
+import "./ChatbotForm.css"
 
 type ChatbotFormProps = {
 	state: LandbotState["state"]
