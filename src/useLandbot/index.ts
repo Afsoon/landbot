@@ -21,10 +21,6 @@ const createChatStore = () => {
 	fetch("https://chats.landbot.io/u/H-441480-B0Q96FP58V53BJ2J/index.json")
 		.then((res) => res.json())
 		.then((data) => {
-			landbotState = {
-				messages: [],
-				state: "CONFIG_LOADED",
-			}
 			emitChange()
 
 			core = new Core(data)
