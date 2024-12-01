@@ -4,6 +4,7 @@ import { useLandbot } from "./useLandbot"
 import { TypingChatbot } from "./components/loading/chatbotTyping"
 import { ChatbotMessages } from "./components/chatbot/chatbotMessages"
 import { ChatbotLayout } from "./components/chatbot/chatbotLayout"
+import { ChatbotMessage } from "./components/chatbot/chatbotMessage"
 
 function App() {
 	const { client, landbotState } = useLandbot()
@@ -21,20 +22,10 @@ function App() {
 		<ChatbotLayout>
 			<ChatbotMessages state={landbotState.state}>
 				{landbotState.messages.map((message) => (
-					<article className="media landbot-message" data-author={message.author} key={message.key}>
-						<figure className="media-left landbot-message-avatar">
-							<p className="image is-64x64">
-								<img alt="" className="is-rounded" src="http://i.pravatar.cc/100" />
-							</p>
-						</figure>
-						<div className="media-content landbot-message-content">
-							<div className="content">
+					<ChatbotMessage key={message.key} message={message}>
 								<p>{message.text}</p>
-							</div>
-						</div>
-					</article>
+          </ChatbotMessage>
 				))}
-				{landbotState.state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
 			</ChatbotMessages>
 			<form ref={formRef} onSubmit={handleSubmit} className="landbot-input-container">
 				<div className="field">
