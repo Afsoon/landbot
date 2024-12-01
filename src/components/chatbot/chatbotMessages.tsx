@@ -29,7 +29,11 @@ export const ChatbotMessages = ({ state, children }: ChatbotProps) => {
 	}
 
 	return (
-		<div className="landbot-messages-container" id="landbot-messages-container">
+		<div
+			className="landbot-messages-container"
+			id="landbot-messages-container"
+			ref={(node) => node?.scrollTo({ behavior: "smooth", top: node.scrollHeight })}
+		>
 			{children}
 			{state === "WAITING_FOR_BOT_INPUT" ? <TypingChatbot /> : null}
 		</div>
