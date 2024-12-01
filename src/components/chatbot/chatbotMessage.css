@@ -1,50 +1,47 @@
 .landbot-message {
-    display: flex;
-    width: 100%;
-    margin-top: 0;
-    padding-top: 0;
-  }
-  
-  .landbot-message + .landbot-message {
-    margin-top: 12px;
-    padding-top: 0;
-    border-top: 0;
-  }
-  
-  
-  .landbot-message[data-author="user"] {
-    justify-content: flex-end;
-  }
-  
-  .landbot-message[data-author="bot"] + .landbot-message[data-author="bot"],
-  .landbot-message[data-author="user"] + .landbot-message[data-author="user"] {
-    margin-top: 3px;
-  }
-  
-  
-  .landbot-message-content {
-    color: var(--light);
-    padding: 12px 16px;
-    border-radius: 18px;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-grow: 0;
-  }
+	display: flex;
+	width: 100%;
+	margin-top: 0;
+	padding-top: 0;
+}
 
-  .landbot-message-time {
-    font-size: 12px;
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-  }
-  
-  .landbot-message[data-author="bot"] .landbot-message-content {
-    background-color: var(--dark-blue-2);
-    border-bottom-left-radius: 2px;
-  }
-  
-  .landbot-message[data-author="user"] .landbot-message-content {
-    background-color: var(--orange);
-    border-bottom-right-radius: 2px;
-  }
-  
+.landbot-message + .landbot-message {
+	margin-top: 12px;
+	padding-top: 0;
+	border-top: 0;
+}
+
+.landbot-message[data-author="user"] {
+	justify-content: flex-end;
+}
+
+.landbot-message[data-author="bot"] + .landbot-message[data-author="bot"],
+.landbot-message[data-author="user"] + .landbot-message[data-author="user"] {
+	margin-top: 3px;
+}
+
+.landbot-message-content {
+	color: var(--light);
+	padding: 12px 16px;
+	border-radius: 18px;
+	display: inline-flex;
+	flex-direction: column;
+	gap: 8px;
+	flex-grow: 0;
+}
+
+.landbot-message-time {
+	font-size: 12px;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.landbot-message[data-author="bot"] .landbot-message-content {
+	background-color: var(--dark-blue-2);
+	border-bottom-left-radius: 2px;
+}
+
+.landbot-message[data-author="user"] .landbot-message-content {
+	background-color: var(--orange);
+	border-bottom-right-radius: 2px;
+}

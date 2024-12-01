@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"ignore": ["app/library/icon/**/*"]
+		"include": ["app/**/*"]
 	},
 	"vcs": {
 		"enabled": true,

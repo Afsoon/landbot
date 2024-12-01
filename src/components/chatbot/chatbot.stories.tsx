@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { ChatbotLayout } from "./chatbotLayout"
-import { ChatbotMessages } from "./chatbotMessages"
-import { ChatbotMessage } from "./chatbotMessage"
-import { useRef, type ComponentProps } from "react"
+import { type ComponentProps, useRef } from "react"
 import type { ChatMessage } from "../../useLandbot/types"
 import { ChatbotForm } from "./chatbotForm"
+import { ChatbotLayout } from "./chatbotLayout"
+import { ChatbotMessage } from "./chatbotMessage"
+import { ChatbotMessages } from "./chatbotMessages"
 
 const meta: Meta<typeof ChatbotMessages> = {
 	component: ChatbotMessages,
 	render: (props: ComponentProps<typeof ChatbotMessages>) => {
-        const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault()
-        }
-        const formRef = useRef<HTMLFormElement>(null)
+		const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault()
+		}
+		const formRef = useRef<HTMLFormElement>(null)
 
 		const botMessage: ChatMessage = {
 			key: "1",
@@ -36,7 +36,7 @@ const meta: Meta<typeof ChatbotMessages> = {
 					<ChatbotMessage message={botMessage}>{botMessage.text}</ChatbotMessage>
 					<ChatbotMessage message={userMessage}>{userMessage.text}</ChatbotMessage>
 				</ChatbotMessages>
-                <ChatbotForm state={props.state} onSubmit={handleSubmit} ref={formRef} />
+				<ChatbotForm state={props.state} onSubmit={handleSubmit} ref={formRef} />
 			</ChatbotLayout>
 		)
 	},
@@ -48,9 +48,9 @@ const meta: Meta<typeof ChatbotMessages> = {
 			options: ["LOADING", "ERROR", "READY", "WAITING_FOR_BOT_INPUT"],
 			control: { type: "radio" },
 		},
-        children: {
-            control: false,
-        },
+		children: {
+			control: false,
+		},
 	},
 	title: "Chatbot",
 	tags: ["autodocs"],
