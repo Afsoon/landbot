@@ -35,7 +35,7 @@ The main benefit of using `refCallback` is that allow us to colocated the DOM co
 
 ### Loading, Error states, focus on input and invalid input.
 
-Improved the UX by adding the user feedback for the different states of the chatbot.
+Improved the UX by adding the user feedback for the different states of the chatbot. All the animations have a hidden label for a11y and testing purpose.
 
 ### Form instead of a div with a input, and uncontrolled input.
 
@@ -67,5 +67,6 @@ A non exhaustive list of future improvements:
 
 - i18n.
 - Continuous deployment.
-- A better UI.
+- A better UI/UX. A non exhaustive list is better color palette, contrast, space tokens, typografy sizes.
 - A better implementation of bot typing.
+- CamelCase the files. I have APFS 
